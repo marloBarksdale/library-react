@@ -1,20 +1,29 @@
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 import './BookList.css';
 import { useNavigate, Link } from 'react-router-dom';
+import useFetch from '../hooks/useFetch';
 
 const BookList = ({ books }) => {
+  const [id, setId] = useState(null);
   const navigate = useNavigate();
-  const handleDelete = (id) => {
-    const deleteData = async () => {
-      const respone = await fetch(`http://10.0.0.124:5002/books/${id}`, {
-        method: 'DELETE',
-      });
 
-      return await respone.json();
-    };
+  const { data, deleteData } = useFetch(
+    'http://10.0.0.124:5002/books',
+    'DELETE',
+  );
 
-    deleteData().then((data) => console.log(data));
-  };
+  useEffect(() => {
+    if (id) {
+      deleteData(id);
+    }
+  }, [id]);
+
+  useEffect(() => {
+    if (data) {
+      navigate(0);
+    }
+  }, [data]);
+
   return (
     <div className='book-list'>
       {books &&
@@ -26,7 +35,7 @@ const BookList = ({ books }) => {
             <p>{book.pages} pages</p>
             <button
               onClick={() => {
-                handleDelete(book.id);
+                setId(book.id);
               }}
             >
               Delete

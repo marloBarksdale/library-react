@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
+import useFetch from '../../hooks/useFetch';
 
 const Create = () => {
   const [title, setTitle] = useState('');
@@ -8,6 +9,8 @@ const Create = () => {
   const [year, setYear] = useState('');
   const [newAuthor, setNewAuthor] = useState('');
   const navigate = useNavigate();
+
+  const { data, postData } = useFetch('http://10.0.0.124:5002/books', 'POST');
 
   const handleAdd = (e) => {
     e.preventDefault();
@@ -24,18 +27,14 @@ const Create = () => {
     e.preventDefault();
     let newBook = { title, authors, pages, year };
 
-    const postData = async (data = {}) => {
-      const response = await fetch('http://10.0.0.124:5002/books', {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify(data),
-      });
-
-      return response.json();
-    };
-
-    postData(newBook).then(() => navigate('/'));
+    postData(newBook);
   };
+
+  useEffect(() => {
+    if (data) {
+      navigate('/');
+    }
+  }, [data]);
 
   return (
     <div className='create'>

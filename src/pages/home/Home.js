@@ -1,24 +1,11 @@
 import React, { useState, useEffect } from 'react';
 import BookList from '../../components/BookList';
+import useFetch from '../../hooks/useFetch';
 
 const Home = () => {
-  const [books, setBooks] = useState([]);
+  const { data } = useFetch('http://10.0.0.124:5002/books');
 
-  useEffect(() => {
-    const fetchBooks = async () => {
-      const result = await fetch(' http://10.0.0.124:5002/books');
-      const books = await result.json();
-      setBooks(books);
-    };
-
-    fetchBooks();
-  }, []);
-
-  return (
-    <div>
-      <BookList books={books} />
-    </div>
-  );
+  return <div>{data && <BookList books={data} />}</div>;
 };
 
 export default Home;

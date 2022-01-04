@@ -11,16 +11,6 @@
       "complete": false
     },
     {
-      "id": 2,
-      "title": "I love my dog",
-      "authors": [
-        "Mary Jane"
-      ],
-      "pages": 50,
-      "year": "1991",
-      "complete": false
-    },
-    {
       "id": 3,
       "title": "Running with horses",
       "authors": [

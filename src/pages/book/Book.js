@@ -1,18 +1,10 @@
 import React, { useEffect, useState } from 'react';
 import { useParams } from 'react-router-dom';
+import useFetch from '../../hooks/useFetch';
 
 const Book = () => {
   const { id } = useParams();
-  const [book, setBook] = useState(null);
-  useEffect(() => {
-    const fetchData = async () => {
-      const result = await fetch(`http://10.0.0.124:5002/books/${id}`);
-      const data = await result.json();
-      setBook(data);
-      console.log(data);
-    };
-    fetchData();
-  }, [id]);
+  const { data: book } = useFetch(`http://10.0.0.124:5002/books/${id}`);
 
   return (
     <>
