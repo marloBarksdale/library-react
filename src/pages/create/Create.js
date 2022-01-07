@@ -1,6 +1,8 @@
 import React, { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
 import useFetch from '../../hooks/useFetch';
+import { db } from '../../firebase/config';
+import { collection, addDoc } from 'firebase/firestore';
 
 const Create = () => {
   const [title, setTitle] = useState('');
@@ -23,9 +25,11 @@ const Create = () => {
     });
   };
 
-  const handleSubmit = (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault();
     let newBook = { title, authors, pages, year };
+
+    await addDoc(collection(db, 'books'), newBook);
 
     postData(newBook);
   };

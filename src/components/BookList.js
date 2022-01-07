@@ -2,7 +2,9 @@ import React, { useEffect, useState } from 'react';
 import './BookList.css';
 import { useNavigate, Link } from 'react-router-dom';
 import useFetch from '../hooks/useFetch';
-
+import { db } from '../firebase/config';
+import { collection, doc, onSnapshot } from 'firebase/firestore';
+import { deleteDoc } from 'firebase/firestore';
 const BookList = ({ books }) => {
   const [id, setId] = useState(null);
   const navigate = useNavigate();
@@ -14,7 +16,8 @@ const BookList = ({ books }) => {
 
   useEffect(() => {
     if (id) {
-      deleteData(id);
+      // deleteData(id);
+      deleteDoc(doc(db, 'books', id));
     }
   }, [id]);
 

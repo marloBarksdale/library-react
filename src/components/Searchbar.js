@@ -1,12 +1,34 @@
-import React from 'react';
+import React, { useState } from 'react';
+import { useLocation, useNavigate } from 'react-router-dom';
 
 const Searchbar = () => {
+  const [searchTerm, setTerm] = useState('');
+
+  const navigate = useNavigate();
+  const handleSubmit = (e) => {
+    e.preventDefault();
+
+    navigate(`/search?q=${searchTerm}`);
+    setTerm('');
+    navigate(0);
+  };
+
+  const string = useLocation().search;
+
   return (
     <div className='searchbar'>
-      <form>
+      <form onSubmit={handleSubmit}>
         <label htmlFor='search'>
           Search:
-          <input type='search' name='' id='search' />
+          <input
+            type='search'
+            name=''
+            id='search'
+            value={searchTerm}
+            onChange={(e) => {
+              setTerm(e.target.value);
+            }}
+          />
         </label>
       </form>
     </div>

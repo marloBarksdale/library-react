@@ -23,6 +23,7 @@ const useFetch = (url, method = 'GET') => {
   useEffect(() => {
     const fetchData = async (fetchOptions) => {
       let res = await fetch(myUrl, { ...fetchOptions });
+      console.log(myUrl);
       res = await res.json();
       setData(res);
     };
