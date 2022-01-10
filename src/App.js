@@ -13,7 +13,7 @@ function App() {
   const { mode } = useTheme();
   return (
     <div className={`App ${mode}`}>
-      <Router basename='library-react'>
+      <Router>
         <Navbar />
         <ThemeSelector />
         <div className='content-wrap'>
