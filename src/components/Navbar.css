@@ -1,11 +1,47 @@
+.navbar {
+
+    padding: 20px;
+    color: #fff;
+}
+
 .navbar nav {
     display: flex;
-    max-width: 1200px;
     align-items: center;
+    max-width: 1200px;
     margin: 0 auto;
     justify-content: space-between;
 }
 
-.navbar {
-    padding: 20px;
+.navbar a {
+    /* margin-right: auto; */
+    color: #fff;
+    text-decoration: none;
+}
+
+.navbar a:last-child {
+    color: #fff;
+    text-decoration: none;
+
+    padding: 8px;
+    border: 1px solid #fff;
+    border-radius: 4px;
+}
+
+.navbar a:last-child:hover {
+    background: #fff;
+    color: #333;
+}
+
+@media (max-width: 769px) {
+    .navbar nav {
+        flex-direction: column;
+
+
+    }
+
+    .navbar a:last-child {
+        margin-top: 40px;
+    }
+
+
 }

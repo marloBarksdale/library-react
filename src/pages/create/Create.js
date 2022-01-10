@@ -1,8 +1,9 @@
-import React, { useState, useEffect } from 'react';
+import { addDoc, collection } from 'firebase/firestore';
+import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
-import useFetch from '../../hooks/useFetch';
 import { db } from '../../firebase/config';
-import { collection, addDoc } from 'firebase/firestore';
+import './Create.css';
+import { useTheme } from '../../hooks/useTheme';
 
 const Create = () => {
   const [title, setTitle] = useState('');
@@ -11,11 +12,13 @@ const Create = () => {
   const [year, setYear] = useState('');
   const [newAuthor, setNewAuthor] = useState('');
   const navigate = useNavigate();
+  const { color } = useTheme();
 
-  const { data, postData } = useFetch('http://10.0.0.124:5002/books', 'POST');
+  // const { data, postData } = useFetch('http://10.0.0.124:5002/books', 'POST');
 
   const handleAdd = (e) => {
     e.preventDefault();
+
     if (authors.includes(newAuthor.trim()) || newAuthor.trim().length === 0) {
       return;
     }
@@ -29,22 +32,24 @@ const Create = () => {
     e.preventDefault();
     let newBook = { title, authors, pages, year };
 
-    await addDoc(collection(db, 'books'), newBook);
+    await addDoc(collection(db, 'books'), newBook).then((data) =>
+      navigate('/'),
+    );
 
-    postData(newBook);
+    // postData(newBook);
   };
 
-  useEffect(() => {
-    if (data) {
-      navigate('/');
-    }
-  }, [data]);
+  // useEffect(() => {
+  //   if (data) {
+  //     navigate('/');
+  //   }
+  // }, [data]);
 
   return (
     <div className='create'>
       <form onSubmit={handleSubmit}>
         <label>
-          Title
+          <span>Title</span>
           <input
             type='text'
             required
@@ -53,24 +58,29 @@ const Create = () => {
           />
         </label>{' '}
         <label>
-          Authors
-          <input
-            type='text'
-            value={newAuthor}
-            onChange={(e) => {
-              setNewAuthor(e.target.value);
-            }}
-          />
+          <span> Authors</span>
+          <div className='authors'>
+            <input
+              type='text'
+              value={newAuthor}
+              onChange={(e) => {
+                setNewAuthor(e.target.value);
+              }}
+            />
+            <p>{authors && authors.map((i) => <em key={i}>{i}, </em>)}</p>
+
+            <button
+              style={{ backgroundColor: color }}
+              onClick={(e) => {
+                handleAdd(e);
+              }}
+            >
+              Add Author
+            </button>
+          </div>
         </label>{' '}
-        <button
-          onClick={(e) => {
-            handleAdd(e);
-          }}
-        >
-          Add Author
-        </button>
         <label>
-          Year Published
+          <span>Year Published</span>
           <input
             type='text'
             value={year}
@@ -80,7 +90,7 @@ const Create = () => {
           />
         </label>{' '}
         <label>
-          Pages
+          <span> Pages</span>
           <input
             type='text'
             value={pages}
@@ -89,7 +99,9 @@ const Create = () => {
             }}
           />
         </label>
-        <button type='submit'>Add Book</button>
+        <button type='submit' style={{ backgroundColor: color }}>
+          Add Book
+        </button>
       </form>
     </div>
   );

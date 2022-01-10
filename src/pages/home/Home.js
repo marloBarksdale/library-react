@@ -4,9 +4,10 @@ import useFetch from '../../hooks/useFetch';
 import { collection, getDocs } from 'firebase/firestore';
 import { db } from '../../firebase/config';
 import { onSnapshot, doc } from 'firebase/firestore';
+import './Home.css';
 const Home = () => {
   const [myCollection, setMyCollection] = useState([]);
-  const { data } = useFetch('http://10.0.0.124:5002/books');
+  // const { data } = useFetch('http://10.0.0.124:5002/books');
 
   useEffect(() => {
     const unsub = onSnapshot(collection(db, 'books'), (snapshot) => {

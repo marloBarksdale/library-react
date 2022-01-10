@@ -1,0 +1,26 @@
+.App {
+    min-height: 100%;
+    position: relative;
+    /* height: 100%; */
+
+
+}
+
+.App.dark {
+    background: #333;
+}
+
+footer {
+    height: 100px;
+    background-color: #58249c;
+    width: 100%;
+    position: absolute;
+    bottom: 0;
+
+
+}
+
+
+.content-wrap {
+    padding-bottom: 100px;
+}

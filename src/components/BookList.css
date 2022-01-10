@@ -1,28 +1,87 @@
 .book-list {
     display: grid;
     max-width: 1200px;
-    grid-template-columns: repeat(auto-fit, minmax(200px, 250px));
-
+    grid-template-columns: repeat(auto-fit, minmax(300px, 300px));
+    padding: 10px;
     grid-gap: 2rem;
-    margin: 40px auto;
+    margin: 0 auto;
 }
 
 
-.book-list .book.card {
 
+.book-list .card {
     background: #fff;
+
     color: #333;
     padding: 20px;
     border-radius: 4px;
     box-shadow: 3px 3px 3px rgba(0, 0, 0, 0.05);
-
+    transition: all 0.3s ease;
     position: relative;
-    transition: all 0.5s ease-in-out;
-    cursor: pointer;
+    height: 300px;
+}
+
+.book-list .card:hover {
+    transform: rotate(3deg);
+}
+
+.book-list .card h3 {
+    color: #555;
+    margin-bottom: 6px;
+
+}
+
+.book-list .card p {
+    color: #999;
+    font-size: 0.9em;
+}
+
+.book-list .card div {
+    color: #555;
+    font-size: 0.7em;
+    margin: 20px 0;
+    line-height: 1.5em;
+}
+
+.book-list .card .delete {
+    /* position: absolute; */
+    float: right;
+    margin-left: 10px;
+
+
+}
+
+.book-list .card a {
+    color: #555;
+    text-decoration: none;
+    display: block;
+    background: #e2e2e2;
+    font-size: 0.9em;
+    width: 100px;
+    text-align: center;
+    width: 120px;
+    padding: 8px;
+    border-radius: 4px;
+    margin: 20px auto;
+}
+
+.book-list .card.dark {
+    background: #555;
 }
 
 
-.book-list .book.card:hover {
+.book-list .card.dark p, .book-list .card.dark h3, .book-list .card.dark div {
+    color: #e4e4e4;
+}
 
-    transform: scale(1.1);
+
+@media only screen and (max-width: 792px) {
+
+
+    .book-list {
+        justify-content: center;
+    }
+
+
+
 }

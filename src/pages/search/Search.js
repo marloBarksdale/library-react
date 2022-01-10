@@ -1,8 +1,8 @@
+import { doc, getDoc, query } from 'firebase/firestore';
 import React, { useEffect, useState } from 'react';
-import { useNavigate, useSearchParams } from 'react-router-dom';
+import { useSearchParams } from 'react-router-dom';
 import BookList from '../../components/BookList';
 import useFetch from '../../hooks/useFetch';
-import Book from '../book/Book';
 
 const Search = () => {
   const [searchParams, setSearchParams] = useSearchParams();
@@ -15,6 +15,8 @@ const Search = () => {
   }, [searchParams]);
 
   const { data } = useFetch(`http://10.0.0.124:5002/books?q=${search}`);
+
+  useEffect(() => {});
 
   useEffect(() => {
     if (data) {

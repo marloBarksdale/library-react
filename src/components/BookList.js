@@ -1,18 +1,19 @@
+import { deleteDoc, doc } from 'firebase/firestore';
 import React, { useEffect, useState } from 'react';
-import './BookList.css';
 import { useNavigate, Link } from 'react-router-dom';
-import useFetch from '../hooks/useFetch';
 import { db } from '../firebase/config';
-import { collection, doc, onSnapshot } from 'firebase/firestore';
-import { deleteDoc } from 'firebase/firestore';
+import * as FaIcons from 'react-icons/fa';
+import './BookList.css';
+import { useTheme } from '../hooks/useTheme';
 const BookList = ({ books }) => {
   const [id, setId] = useState(null);
   const navigate = useNavigate();
+  const { mode } = useTheme();
 
-  const { data, deleteData } = useFetch(
-    'http://10.0.0.124:5002/books',
-    'DELETE',
-  );
+  // const { data, deleteData } = useFetch(
+  //   'http://10.0.0.124:5002/books',
+  //   'DELETE',
+  // );
 
   useEffect(() => {
     if (id) {
@@ -21,35 +22,31 @@ const BookList = ({ books }) => {
     }
   }, [id]);
 
-  useEffect(() => {
-    if (data) {
-      navigate(0);
-    }
-  }, [data]);
+  // useEffect(() => {
+  //   if (data) {
+  //     navigate(0);
+  //   }
+  // }, [data]);
 
   return (
     <div className='book-list'>
       {books &&
         books.map((book, index) => (
-          <div key={index} className='card book'>
-            <h2>{book.title}</h2>
-            <p>{book.year}</p>
-            <p>{book.authors.join(', ')}</p>
-            <p>{book.pages} pages</p>
-            <button
+          <div key={index} className={`card ${mode}`}>
+            <span
+              className='delete'
               onClick={() => {
                 setId(book.id);
               }}
             >
-              Delete
-            </button>
-            <button
-              onClick={() => {
-                navigate(`books/${book.id}`);
-              }}
-            >
-              More
-            </button>
+              <FaIcons.FaTrash />
+            </span>
+            <h3>{book.title}</h3>
+
+            <p>{book.year}</p>
+            <div>{book.authors.join(', ')}</div>
+            <div>{book.pages} pages</div>
+            <Link to={`books/${book.id}`}>More</Link>
           </div>
         ))}
     </div>

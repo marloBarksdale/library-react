@@ -1,0 +1,46 @@
+.create {
+    color: #555;
+    max-width: 480px;
+    margin: 60px auto;
+}
+
+.create label span {
+    display: block;
+    margin: 30px 0 10px;
+}
+
+.create p {
+    margin-top: 10px;
+    font-size: 0.8em;
+    text-align: left;
+    position: absolute;
+    left: 0;
+    top: 35px;
+}
+
+.create button {
+    display: block;
+    width: 250px;
+    font-size: 1em;
+    color: #fff;
+    padding: 8px 20px;
+    border: 0;
+    border-radius: 4px;
+    background-color: #58249c;
+    cursor: pointer;
+    text-decoration: none;
+    margin: 20px auto;
+}
+
+.authors {
+    display: flex;
+    align-items: center;
+    flex-direction: column;
+    gap: 1rem;
+    position: relative;
+}
+
+.authors button {
+    margin: 10px 0 0 10px;
+    margin-bottom: 1rem;
+}
