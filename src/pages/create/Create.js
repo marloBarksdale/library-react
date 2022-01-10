@@ -1,5 +1,5 @@
 import { addDoc, collection } from 'firebase/firestore';
-import React, { useState } from 'react';
+import React, { useRef, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { db } from '../../firebase/config';
 import './Create.css';
@@ -13,19 +13,24 @@ const Create = () => {
   const [newAuthor, setNewAuthor] = useState('');
   const navigate = useNavigate();
   const { color } = useTheme();
+  const authorInput = useRef(null);
 
   // const { data, postData } = useFetch('http://10.0.0.124:5002/books', 'POST');
 
   const handleAdd = (e) => {
+    const newA = newAuthor.trim();
+    setNewAuthor('');
     e.preventDefault();
 
-    if (authors.includes(newAuthor.trim()) || newAuthor.trim().length === 0) {
+    if (authors.includes(newA) || newA.length === 0) {
       return;
     }
 
     setAuthors((prevAuthors) => {
-      return [...prevAuthors, newAuthor.trim()];
+      return [...prevAuthors, newA];
     });
+
+    authorInput.current.focus();
   };
 
   const handleSubmit = async (e) => {
@@ -66,6 +71,7 @@ const Create = () => {
               onChange={(e) => {
                 setNewAuthor(e.target.value);
               }}
+              ref={authorInput}
             />
             <p>{authors && authors.map((i) => <em key={i}>{i}, </em>)}</p>
 
