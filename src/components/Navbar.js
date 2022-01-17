@@ -1,13 +1,12 @@
 import React from 'react';
 import * as Si from 'react-icons/si';
-import Searchbar from './Searchbar';
 import { Link } from 'react-router-dom';
-import './Navbar.css';
 import { useTheme } from '../hooks/useTheme';
-import ThemeSelector from './ThemeSelector';
+import './Navbar.css';
 
 const Navbar = () => {
-  const { color, changeColor } = useTheme();
+  const { color } = useTheme();
+  const user = false;
   return (
     <>
       <div className='navbar' style={{ background: color }}>
@@ -18,7 +17,22 @@ const Navbar = () => {
             </h1>
           </Link>
           {/* <Searchbar /> */}
-          <Link to='/create'>Create Book</Link>
+          <div className='nav-links'>
+            {!user && (
+              <>
+                <Link to='login'>Login</Link>
+                <Link to='signup'>Signup</Link>
+              </>
+            )}
+
+            {user && (
+              <>
+                {' '}
+                <Link to='logout'>Logout</Link>
+                <Link to='/create'>Create Book</Link>
+              </>
+            )}
+          </div>
         </nav>
       </div>
     </>

@@ -3,6 +3,7 @@ import Book from './pages/book/Book';
 import Footer from './components/Footer';
 import Search from './pages/search/Search';
 import Home from './pages/home/Home';
+import Login from './pages/login/Login';
 import Create from './pages/create/Create';
 import Navbar from './components/Navbar';
 import ThemeSelector from './components/ThemeSelector';
@@ -22,6 +23,7 @@ function App() {
             <Route path='create' element={<Create />} />
             <Route path='search' element={<Search />} />
             <Route path='books/:id' element={<Book />} />
+            <Route path='login' element={<Login />} />
           </Routes>
         </div>
         <Footer />

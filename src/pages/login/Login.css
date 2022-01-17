@@ -1,0 +1,32 @@
+.login {
+    max-width: 650px;
+    margin: 20px auto;
+    padding: 20px 20px;
+    color: #555;
+}
+
+.login label {
+    display: block;
+    margin: 30px auto;
+}
+
+.login span {
+    display: block;
+    margin-bottom: 6px;
+}
+
+.login input {
+    padding: 8px 6px;
+    font-size: 1em;
+    color: #777;
+    width: 100%;
+}
+
+/* 
+.login.dark span {
+    color: #fff
+}
+
+.login.dark h3 {
+    color: #fff;
+} */
