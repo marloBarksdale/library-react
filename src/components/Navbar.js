@@ -1,12 +1,16 @@
 import React from 'react';
 import * as Si from 'react-icons/si';
 import { Link } from 'react-router-dom';
+import { useAuth } from '../hooks/useAuth';
+import { useLogout } from '../hooks/useLogout';
 import { useTheme } from '../hooks/useTheme';
 import './Navbar.css';
 
 const Navbar = () => {
   const { color } = useTheme();
-  const user = false;
+  const { user } = useAuth();
+  const { logout } = useLogout();
+  console.log(user);
   return (
     <>
       <div className='navbar' style={{ background: color }}>
@@ -28,7 +32,10 @@ const Navbar = () => {
             {user && (
               <>
                 {' '}
-                <Link to='logout'>Logout</Link>
+                <p>Hello, {user.displayName}</p>
+                <Link to='/' onClick={logout}>
+                  Logout
+                </Link>
                 <Link to='/create'>Create Book</Link>
               </>
             )}

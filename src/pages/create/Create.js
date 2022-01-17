@@ -4,6 +4,7 @@ import { useNavigate } from 'react-router-dom';
 import { db } from '../../firebase/config';
 import './Create.css';
 import { useTheme } from '../../hooks/useTheme';
+import { useAuth } from '../../hooks/useAuth';
 
 const Create = () => {
   const [title, setTitle] = useState('');
@@ -14,6 +15,7 @@ const Create = () => {
   const navigate = useNavigate();
   const { color } = useTheme();
   const authorInput = useRef(null);
+  const { user } = useAuth();
 
   // const { data, postData } = useFetch('http://10.0.0.124:5002/books', 'POST');
 
@@ -35,7 +37,7 @@ const Create = () => {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-    let newBook = { title, authors, pages, year };
+    let newBook = { title, authors, pages, year, uid: user.uid };
 
     await addDoc(collection(db, 'books'), newBook).then((data) =>
       navigate('/'),

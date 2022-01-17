@@ -1,29 +1,23 @@
-import { createUserWithEmailAndPassword, updateProfile } from 'firebase/auth';
+import { signOut } from 'firebase/auth';
 import { useEffect, useState } from 'react';
 import { authorization } from '../firebase/config';
 import { useAuth } from './useAuth';
 
-export const useSignup = () => {
+export const useLogout = () => {
   const [error, setError] = useState(null);
-  const [pending, setPending] = useState(null);
+  const [pending, setPending] = useState(false);
+
   const [canceled, setCanceled] = useState(false);
   const { dispatch } = useAuth();
-
-  const signup = async (email, password, displayName) => {
-    setPending(true);
+  const logout = async () => {
     setError(null);
+    setPending(true);
     try {
-      const user = await createUserWithEmailAndPassword(
-        authorization,
-        email,
-        password,
-      );
-
-      await updateProfile(user.user, { displayName });
-      dispatch({ type: 'LOGIN', payload: user.user });
+      await signOut(authorization);
+      dispatch({ type: 'LOGOUT' });
       if (!canceled) {
-        setError(null);
         setPending(false);
+        setError(null);
       }
     } catch (error) {
       if (!canceled) {
@@ -37,5 +31,5 @@ export const useSignup = () => {
     return () => setCanceled(true);
   });
 
-  return { signup, error, pending };
+  return { logout, error, pending };
 };
