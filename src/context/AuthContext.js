@@ -1,5 +1,5 @@
 import { onAuthStateChanged } from 'firebase/auth';
-import { createContext, useContext, useEffect, useReducer } from 'react';
+import { createContext, useEffect, useReducer } from 'react';
 import { authorization } from '../firebase/config';
 
 export const AuthContext = createContext();
@@ -7,7 +7,6 @@ export const AuthContext = createContext();
 const authReducer = (state, action) => {
   switch (action.type) {
     case 'LOGIN':
-      console.log(state);
       return { user: action.payload, ready: true };
 
     case 'LOGOUT':
@@ -25,6 +24,9 @@ export const AuthProvider = ({ children }) => {
     user: null,
     ready: null,
   });
+
+  console.log(state);
+
   useEffect(() => {
     const unsub = onAuthStateChanged(authorization, (user) => {
       dispatch({ type: 'READY', payload: user });
@@ -33,12 +35,9 @@ export const AuthProvider = ({ children }) => {
     unsub();
   }, []);
 
-  console.log(state);
   return (
     <AuthContext.Provider value={{ ...state, dispatch }}>
       {children}
     </AuthContext.Provider>
   );
-
-  return;
 };

@@ -1,33 +1,21 @@
-import React, { useState, useEffect } from 'react';
+import { collection, onSnapshot, query, where } from 'firebase/firestore';
+import React, { useEffect, useState } from 'react';
 import BookList from '../../components/BookList';
-import useFetch from '../../hooks/useFetch';
-import { collection, getDocs, where } from 'firebase/firestore';
 import { db } from '../../firebase/config';
-import { onSnapshot, doc, query } from 'firebase/firestore';
 import { useAuth } from '../../hooks/useAuth';
+import { useCollection } from '../../hooks/useCollection';
 import './Home.css';
 const Home = () => {
   const [myCollection, setMyCollection] = useState([]);
   const { user } = useAuth();
   // const { data } = useFetch('http://10.0.0.124:5002/books');
-  console.log(user.uid);
-  useEffect(() => {
-    const unsub = onSnapshot(
-      query(collection(db, 'books'), where('uid', '==', user.uid)),
+  const { documents } = useCollection(
+    'books',
+    ['uid', '==', user.uid],
+    ['createdAt', 'desc'],
+  );
 
-      (snapshot) => {
-        let results = snapshot.docs.map((doc) => {
-          return { id: doc.id, ...doc.data() };
-        });
-
-        setMyCollection(results);
-      },
-    );
-
-    return () => unsub();
-  }, []);
-
-  return <div>{myCollection && <BookList books={myCollection} />}</div>;
+  return <div>{documents && <BookList books={documents} />}</div>;
 };
 
 export default Home;

@@ -35,7 +35,7 @@ export const useSignup = () => {
 
   useEffect(() => {
     return () => setCanceled(true);
-  });
+  }, []);
 
   return { signup, error, pending };
 };

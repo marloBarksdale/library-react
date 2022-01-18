@@ -1,32 +1,14 @@
-import { deleteDoc, doc } from 'firebase/firestore';
-import React, { useEffect, useState } from 'react';
-import { useNavigate, Link } from 'react-router-dom';
-import { db } from '../firebase/config';
+import React from 'react';
 import * as FaIcons from 'react-icons/fa';
-import './BookList.css';
+import { Link } from 'react-router-dom';
+import { useFireStore } from '../hooks/useFirestore';
 import { useTheme } from '../hooks/useTheme';
+import './BookList.css';
 const BookList = ({ books }) => {
-  const [id, setId] = useState(null);
-  const navigate = useNavigate();
+  // const [id, setId] = useState(null);
+
   const { mode } = useTheme();
-
-  // const { data, deleteData } = useFetch(
-  //   'http://10.0.0.124:5002/books',
-  //   'DELETE',
-  // );
-
-  useEffect(() => {
-    if (id) {
-      // deleteData(id);
-      deleteDoc(doc(db, 'books', id));
-    }
-  }, [id]);
-
-  // useEffect(() => {
-  //   if (data) {
-  //     navigate(0);
-  //   }
-  // }, [data]);
+  const { deleteDocument } = useFireStore('books');
 
   return (
     <div className='book-list'>
@@ -36,7 +18,7 @@ const BookList = ({ books }) => {
             <span
               className='delete'
               onClick={() => {
-                setId(book.id);
+                deleteDocument(book.id);
               }}
             >
               <FaIcons.FaTrash />

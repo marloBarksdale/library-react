@@ -1,28 +1,28 @@
-.login {
+.signup {
     max-width: 650px;
     margin: 20px auto;
     padding: 20px 20px;
     color: #555;
 }
 
-.login label {
+.signup label {
     display: block;
     margin: 30px auto;
 }
 
-.login span {
+.signup span {
     display: block;
     margin-bottom: 6px;
 }
 
-.login input {
+.signup input {
     padding: 8px 6px;
     font-size: 1em;
     color: #777;
     width: 100%;
 }
 
-.login button {
+.signup button {
 
 
     display: block;

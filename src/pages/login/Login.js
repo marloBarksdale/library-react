@@ -7,7 +7,7 @@ const Login = () => {
   const [password, setPassword] = useState('');
   const { mode } = useTheme();
   const { login } = useLogin();
-
+  const { color } = useTheme();
   const handleSubmit = (e) => {
     e.preventDefault();
     login(email, password);
@@ -34,7 +34,7 @@ const Login = () => {
           onChange={(e) => setPassword(e.target.value)}
         />
       </label>
-      <button>Login</button>
+      <button style={{ background: color }}>Login</button>
     </form>
   );
 };

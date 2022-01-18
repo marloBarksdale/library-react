@@ -10,7 +10,7 @@ const Navbar = () => {
   const { color } = useTheme();
   const { user } = useAuth();
   const { logout } = useLogout();
-  console.log(user);
+
   return (
     <>
       <div className='navbar' style={{ background: color }}>
@@ -32,11 +32,11 @@ const Navbar = () => {
             {user && (
               <>
                 {' '}
-                <p>Hello, {user.displayName}</p>
+                <Link to='/create'>Create Book</Link>
                 <Link to='/' onClick={logout}>
                   Logout
                 </Link>
-                <Link to='/create'>Create Book</Link>
+                <p>Hello, {user.displayName}</p>
               </>
             )}
           </div>

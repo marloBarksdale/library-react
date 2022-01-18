@@ -1,10 +1,9 @@
-import { addDoc, collection } from 'firebase/firestore';
-import React, { useRef, useState } from 'react';
+import React, { useEffect, useRef, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
-import { db } from '../../firebase/config';
-import './Create.css';
-import { useTheme } from '../../hooks/useTheme';
 import { useAuth } from '../../hooks/useAuth';
+import { useFireStore } from '../../hooks/useFirestore';
+import { useTheme } from '../../hooks/useTheme';
+import './Create.css';
 
 const Create = () => {
   const [title, setTitle] = useState('');
@@ -16,6 +15,7 @@ const Create = () => {
   const { color } = useTheme();
   const authorInput = useRef(null);
   const { user } = useAuth();
+  const { addDocument, success, pending } = useFireStore('books');
 
   // const { data, postData } = useFetch('http://10.0.0.124:5002/books', 'POST');
 
@@ -37,20 +37,17 @@ const Create = () => {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
+
     let newBook = { title, authors, pages, year, uid: user.uid };
 
-    await addDoc(collection(db, 'books'), newBook).then((data) =>
-      navigate('/'),
-    );
-
-    // postData(newBook);
+    await addDocument(newBook);
   };
 
-  // useEffect(() => {
-  //   if (data) {
-  //     navigate('/');
-  //   }
-  // }, [data]);
+  useEffect(() => {
+    if (success) {
+      navigate('/');
+    }
+  }, [success]);
 
   return (
     <div className='create'>
@@ -107,9 +104,14 @@ const Create = () => {
             }}
           />
         </label>
-        <button type='submit' style={{ backgroundColor: color }}>
-          Add Book
-        </button>
+        {!pending && (
+          <button style={{ backgroundColor: color }}>Add Book</button>
+        )}
+        {pending && (
+          <button style={{ backgroundColor: color }} disabled>
+            Adding
+          </button>
+        )}
       </form>
     </div>
   );

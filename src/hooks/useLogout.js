@@ -29,7 +29,7 @@ export const useLogout = () => {
 
   useEffect(() => {
     return () => setCanceled(true);
-  });
+  }, []);
 
   return { logout, error, pending };
 };

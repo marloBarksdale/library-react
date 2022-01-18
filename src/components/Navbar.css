@@ -16,12 +16,13 @@
     /* margin-right: auto; */
     color: #fff;
     text-decoration: none;
+    margin-left: 10px;
 }
 
-.navbar a:last-child {
+.navbar .nav-links a {
     color: #fff;
     text-decoration: none;
-
+    margin-left: 20px;
     padding: 8px;
     border: 1px solid #fff;
     border-radius: 4px;
@@ -32,6 +33,12 @@
     color: #333;
 }
 
+.navbar p {
+    display: inline;
+    margin-left: 20px;
+
+}
+
 @media (max-width: 769px) {
     .navbar nav {
         flex-direction: column;
@@ -39,8 +46,15 @@
 
     }
 
-    .navbar a:last-child {
+    .navbar .nav-links p {
         margin-top: 40px;
+        text-align: center;
+        display: block;
+    }
+
+    .navbar .nav-links {
+        margin-top: 40px;
+
     }
 
 
