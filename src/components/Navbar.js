@@ -36,7 +36,7 @@ const Navbar = () => {
                 <Link to='/' onClick={logout}>
                   Logout
                 </Link>
-                <p>Hello, {user.displayName}</p>
+                {user.displayName && <p>Hello, {user.displayName}</p>}
               </>
             )}
           </div>
