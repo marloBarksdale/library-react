@@ -6,7 +6,7 @@ const Login = () => {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const { mode } = useTheme();
-  const { login } = useLogin();
+  const { login, error, pending } = useLogin();
   const { color } = useTheme();
   const handleSubmit = (e) => {
     e.preventDefault();
@@ -34,7 +34,13 @@ const Login = () => {
           onChange={(e) => setPassword(e.target.value)}
         />
       </label>
-      <button style={{ background: color }}>Login</button>
+      {!pending && <button style={{ background: color }}>Login</button>}
+      {pending && (
+        <button disabled style={{ background: color }}>
+          Logging in
+        </button>
+      )}
+      {error && <p>{error}</p>}
     </form>
   );
 };

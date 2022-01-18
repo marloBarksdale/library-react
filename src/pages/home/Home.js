@@ -9,13 +9,19 @@ const Home = () => {
   const [myCollection, setMyCollection] = useState([]);
   const { user } = useAuth();
   // const { data } = useFetch('http://10.0.0.124:5002/books');
-  const { documents } = useCollection(
+  const { documents, pending, error } = useCollection(
     'books',
     ['uid', '==', user.uid],
     ['createdAt', 'desc'],
   );
 
-  return <div>{documents && <BookList books={documents} />}</div>;
+  return (
+    <div>
+      {pending && <p>Fetching data...</p>}
+      {error && <p>{error}</p>}
+      {documents && <BookList books={documents} />}
+    </div>
+  );
 };
 
 export default Home;

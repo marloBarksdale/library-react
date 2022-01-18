@@ -10,6 +10,7 @@ import { db } from '../firebase/config';
 
 export const useCollection = (collection, q, _orderBy) => {
   const [documents, setDocuments] = useState(null);
+  const [pending, setPending] = useState(false);
   const [error, setError] = useState(null);
 
   const _query = useRef(q).current;
@@ -17,6 +18,8 @@ export const useCollection = (collection, q, _orderBy) => {
 
   useEffect(() => {
     let ref = col(db, collection);
+    setPending(true);
+    setError(null);
 
     if (order) {
       ref = query(ref, where(..._query), orderBy(...order));
@@ -32,14 +35,16 @@ export const useCollection = (collection, q, _orderBy) => {
         });
         setDocuments(res);
         setError(null);
+        setPending(false);
       },
       (error) => {
         setError('Could not fetch');
+        setPending(false);
       },
     );
 
     return () => unsub();
   }, [collection, order, _query]);
 
-  return { documents, error };
+  return { documents, error, pending };
 };
